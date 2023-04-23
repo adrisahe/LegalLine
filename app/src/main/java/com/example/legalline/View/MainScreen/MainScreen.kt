@@ -5,8 +5,8 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.example.legalline.View.MainScreen.SendText
-import com.example.legalline.ViewModel.MainViewModel
+import com.example.legalline.View.MainScreen.ContentMainScreen
+import com.example.legalline.ViewModel.MainViewModel.MainViewModel
 
 /**
  * Pantalla principal de la aplicación
@@ -16,8 +16,8 @@ fun MainScreen(mainViewModel: MainViewModel) {
     Surface(
         modifier = Modifier
             .fillMaxSize(),
-        color = Color(0xFF009688)
+        color = Color(0xFFFFFFF)
     ) {
-        SendText(mainViewModel)
+        ContentMainScreen(mainViewModel)
     }
 }
