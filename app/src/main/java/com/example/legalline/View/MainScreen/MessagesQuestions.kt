@@ -3,6 +3,7 @@ package com.example.legalline.View.MainScreen
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -20,7 +21,7 @@ fun MessagesQuestions(questions: List<String>, contador: Int) {
     ){
         Card(
             backgroundColor = Color(0xFF79D7E2),
-            //shape = CircleShape,
+            shape = RoundedCornerShape(30.dp),
             modifier = Modifier.align(Alignment.CenterEnd)
         ) {
             Text(

@@ -32,6 +32,9 @@ fun ContentMainScreen(mainViewModel: MainViewModel) {
             LazyColumn(
                 modifier = Modifier.fillMaxSize()
             ){
+                item {
+                    WelcomeText()
+                }
                 items(responses.size){messagesList->
                     Spacer(modifier = Modifier.size(10.dp))
                     MessagesQuestions(questions, messagesList)

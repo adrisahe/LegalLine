@@ -27,6 +27,8 @@ class MainViewModel(private val apiKey: String) : ViewModel() {
         _valueText.value = message
     }
 
+
+
     fun questionAndResponse() {
         val mensajeAbogado = Message(
             "Eres un abogado experto en derecho y temas legales, si te hago una pregunta relacionada con \" +\n" +
