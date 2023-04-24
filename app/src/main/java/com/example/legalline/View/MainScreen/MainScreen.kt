@@ -5,7 +5,7 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.example.legalline.View.MainScreen.ContentMainScreen
+import com.example.legalline.View.MainScreen.TopBar
 import com.example.legalline.ViewModel.MainViewModel.MainViewModel
 
 /**
@@ -16,8 +16,8 @@ fun MainScreen(mainViewModel: MainViewModel) {
     Surface(
         modifier = Modifier
             .fillMaxSize(),
-        color = Color(0xFFFFFFF)
+        color = Color.Yellow
     ) {
-        ContentMainScreen(mainViewModel)
+        TopBar(mainViewModel)
     }
 }
