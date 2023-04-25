@@ -1,4 +1,4 @@
-package com.example.legalline.View.MainScreen
+package com.example.legalline.view.main
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -18,6 +18,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.legalline.R
 
@@ -42,10 +43,10 @@ fun WelcomeText(){
                 modifier = Modifier.padding(end = 10.dp)
             ) {
                 Text(
-                    text = "Legaline",
+                    text = stringResource(id = R.string.legaline),
                     style = MaterialTheme.typography.h6
                 )
-                Text("Buenos días, soy Legaline tu abogado de confianza y experto en temas legales, pregunteme todo lo que necesite")
+                Text(stringResource(id = R.string.welcomeMessage))
             }
         }
     }

@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">LegalLine</string>
     <string name="apy_key">Bearer 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</string>
+    <string name="favorites">Favoritos</string>
+    <string name="legaline">Legaline</string>
+    <string name="welcomeMessage">Buenos días, soy Legaline tu abogado de confianza y experto en temas legales, pregunteme todo lo que necesite</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.example.legalline.ViewModel.MainViewModel
+package com.example.legalline.viewModels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

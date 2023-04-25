@@ -1,4 +1,4 @@
-package com.example.legalline.View.MainScreen
+package com.example.legalline.view.main
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth

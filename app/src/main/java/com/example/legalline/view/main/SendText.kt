@@ -1,8 +1,7 @@
-package com.example.legalline.View.MainScreen
+package com.example.legalline.view.main
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
@@ -13,7 +12,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.legalline.ViewModel.MainViewModel.MainViewModel
+import com.example.legalline.viewModels.MainViewModel
 
 @Composable
 fun SendText(mainViewModel: MainViewModel) {

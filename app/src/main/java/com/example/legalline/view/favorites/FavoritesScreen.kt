@@ -1,23 +1,19 @@
-package com.example.legalline.View
+package com.example.legalline.view.favorites
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.example.legalline.View.MainScreen.TopBar
-import com.example.legalline.ViewModel.MainViewModel.MainViewModel
 
-/**
- * Pantalla principal de la aplicación
- */
 @Composable
-fun MainScreen(mainViewModel: MainViewModel) {
+fun FavoritesScreen(){
     Surface(
         modifier = Modifier
             .fillMaxSize(),
         color = Color.Yellow
     ) {
-        TopBar(mainViewModel)
+        Text(text = "prueba")
     }
 }
