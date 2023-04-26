@@ -28,7 +28,7 @@ class MainActivity : ComponentActivity() {
                         MainScreen(mainViewModel, navController)
                     }
                     composable("favorites"){
-                        FavoritesScreen()
+                        FavoritesScreen(navController)
                     }
                 }
             }

@@ -11,7 +11,9 @@ import androidx.compose.material.icons.filled.Send
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.example.legalline.R
 import com.example.legalline.viewModels.MainViewModel
 
 @Composable
@@ -23,8 +25,10 @@ fun SendButton(mainViewModel: MainViewModel) {
             Icons.Default.Send,
             contentDescription = "Send Button",
             tint = Color(0xFFFFFFFF),
-            modifier = Modifier.background(Color(0xFF00897B), CircleShape)
-                .size(42.dp).padding(start = 10.dp, end = 6.dp, top = 6.dp, bottom = 6.dp)
+            modifier = Modifier
+                .background(Color(0xFF00897B), CircleShape)
+                .size(42.dp)
+                .padding(start = 10.dp, end = 6.dp, top = 6.dp, bottom = 6.dp)
         )
     }
 }

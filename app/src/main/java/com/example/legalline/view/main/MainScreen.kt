@@ -2,10 +2,11 @@ package com.example.legalline.view.main
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Surface
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
+import com.example.legalline.view.aplication_app_bar.AplicationTopBar
 import com.example.legalline.viewModels.MainViewModel
 
 /**
@@ -13,13 +14,15 @@ import com.example.legalline.viewModels.MainViewModel
  */
 @Composable
 fun MainScreen(mainViewModel: MainViewModel, navController: NavHostController) {
+    val scaffoldState = rememberScaffoldState()
     Surface(
         modifier = Modifier
-            .fillMaxSize(),
-        color = Color.Yellow
-
-
+            .fillMaxSize()
     ) {
-        TopBar(mainViewModel, navController)
+        AplicationTopBar(
+            navController, scaffoldState,
+            { MainTopBar(scaffoldState)},
+            {ContentMainScreen(mainViewModel)}
+        )
     }
 }
