@@ -3,13 +3,17 @@ package com.example.legalline.framework
 import android.content.Context
 import androidx.compose.ui.res.stringResource
 import com.example.legalline.R
+import com.example.legalline.data.datasources.LocalDataSource
 import com.example.legalline.data.datasources.RemoteDataSource
+import com.example.legalline.data.db.DbQuestionAndResponseDao
 import com.example.legalline.data.repositories.ChatGptRepository
 import com.example.legalline.framework.data.datasources.ChatGptApi
+import com.example.legalline.framework.data.datasources.RoomDatabaseGestion
 import com.example.legalline.framework.data.datasources.ServerMessageQuestionSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -40,7 +44,11 @@ class FrameworkModule {
     @Provides
     @Singleton
     @Named("apiKey")
-    fun apiKeyProvider(): String{
-        return "Bearer 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"
+    fun apiKeyProvider(@ApplicationContext context: Context): String{
+        return context.getString(R.string.apy_key)
     }
+
+    @Provides
+    @Singleton
+    fun localDataSourceProvider(dbQuestionAndResponseDao: DbQuestionAndResponseDao): LocalDataSource = RoomDatabaseGestion(dbQuestionAndResponseDao)
 }
