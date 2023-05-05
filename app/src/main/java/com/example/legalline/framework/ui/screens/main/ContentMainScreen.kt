@@ -14,6 +14,7 @@ import com.example.legalline.framework.viewmodels.MainViewModel
 fun ContentMainScreen(mainViewModel: MainViewModel) {
     val responses by mainViewModel.responses.collectAsState()
     val questions by mainViewModel.questions.collectAsState()
+    val dialog by mainViewModel.alertDialog.collectAsState()
     ConstraintLayout(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -28,18 +29,21 @@ fun ContentMainScreen(mainViewModel: MainViewModel) {
                     end.linkTo(parent.end)
                 }
                 .padding(top = 40.dp, bottom = 80.dp, start = 10.dp, end = 10.dp)
-        ){
+        ) {
             LazyColumn(
                 modifier = Modifier.fillMaxSize()
-            ){
+            ) {
                 item {
                     WelcomeText()
                 }
-                items(responses.size){messagesList->
+                items(responses.size) { messagesList ->
                     Spacer(modifier = Modifier.size(10.dp))
                     MessagesQuestions(questions, messagesList)
                     Spacer(modifier = Modifier.size(10.dp))
                     MessagesResponses(responses, messagesList)
+                }
+                if (dialog){
+                    item { NameFavorite { mainViewModel.favoritesGestion() } }
                 }
             }
         }

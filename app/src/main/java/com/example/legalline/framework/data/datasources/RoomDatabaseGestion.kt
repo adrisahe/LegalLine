@@ -16,4 +16,8 @@ class RoomDatabaseGestion(private val dbQuestionAndResponseDao: DbQuestionAndRes
     override suspend fun deleteConversation(dbQuestionAndResponse: DbQuestionAndResponse) {
         return dbQuestionAndResponseDao.deleteConversation(dbQuestionAndResponse)
     }
+
+    override suspend fun deleteConversations() {
+        return dbQuestionAndResponseDao.deleteConversations()
+    }
 }

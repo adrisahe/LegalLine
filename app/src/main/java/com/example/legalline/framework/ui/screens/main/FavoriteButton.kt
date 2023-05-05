@@ -14,19 +14,18 @@ fun FavoriteButton(mainViewModel: MainViewModel) {
     val favorite by mainViewModel.favorite.collectAsState()
     IconToggleButton(
         checked = favorite,
-        onCheckedChange = {mainViewModel.favoritesGestion()}) {
-        if (favorite){
+        onCheckedChange = { mainViewModel.showDialog() }
+    ) {
+        if (favorite) {
             Icon(
                 painter = painterResource(id = R.drawable.add_favorite),
                 contentDescription = "favorite icon"
             )
-        }
-        else{
+        } else {
             Icon(
                 painter = painterResource(id = R.drawable.delete_favorite),
                 contentDescription = "favorite icon"
             )
         }
-
     }
 }

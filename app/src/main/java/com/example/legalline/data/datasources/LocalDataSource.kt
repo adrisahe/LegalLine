@@ -16,4 +16,6 @@ interface LocalDataSource {
     suspend fun insertConversation(dbQuestionAndResponse: DbQuestionAndResponse)
 
     suspend fun deleteConversation(dbQuestionAndResponse: DbQuestionAndResponse)
+
+    suspend fun deleteConversations()
 }

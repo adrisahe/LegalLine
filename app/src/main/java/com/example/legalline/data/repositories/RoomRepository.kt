@@ -14,4 +14,6 @@ class RoomRepository(private val localDataSource: LocalDataSource) {
 
     suspend fun deleteConversation(dbQuestionAndResponse: DbQuestionAndResponse) =
         localDataSource.deleteConversation(dbQuestionAndResponse)
+
+    suspend fun deleteConversations() = localDataSource.deleteConversations()
 }

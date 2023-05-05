@@ -38,6 +38,9 @@ class MainViewModel @Inject constructor(
     private val _favorite = MutableStateFlow(false)
     val favorite: StateFlow<Boolean> = _favorite.asStateFlow()
 
+    private val _alertDialog = MutableStateFlow(false)
+    val alertDialog: StateFlow<Boolean> = _alertDialog.asStateFlow()
+
 
     fun updateText(message: String) {
         _valueText.value = message
@@ -64,9 +67,14 @@ class MainViewModel @Inject constructor(
 
     fun favoritesGestion(){
         viewModelScope.launch {
-            addOrDelete.updateDatabase(DbQuestionAndResponse(0, responses.value, questions.value))
+
+            addOrDelete.updateDatabase(DbQuestionAndResponse("hola", responses.value, questions.value))
             addOrDelete.prueba()
             _favorite.value = !_favorite.value
         }
+    }
+
+    fun showDialog(){
+        _alertDialog.value = !_alertDialog.value
     }
 }
