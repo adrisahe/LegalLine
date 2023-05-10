@@ -10,11 +10,9 @@ class AddAndDeleteFavoritesConversation(private val repository: RoomRepository) 
     suspend fun updateDatabase(dbQuestionAndResponse: DbQuestionAndResponse){
         if (repository.getAllConversation().contains(dbQuestionAndResponse)){
             repository.deleteConversation(dbQuestionAndResponse)
-            //repository.deleteConversations()
         }
         else{
             repository.insertConversation(dbQuestionAndResponse)
-            //repository.deleteConversations()
         }
     }
 

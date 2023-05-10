@@ -7,7 +7,7 @@ import com.example.legalline.data.db.DbQuestionAndResponse
 class RoomRepository(private val localDataSource: LocalDataSource) {
     suspend fun getAllConversation() = localDataSource.getAllConversation()
 
-    //suspend fun getConversationById(id: Int) = localDataSource.getConversationById(id)
+    suspend fun getConversationById(idNameFavorite: String) = localDataSource.getConversationById(idNameFavorite)
 
     suspend fun insertConversation(dbQuestionAndResponse: DbQuestionAndResponse) =
         localDataSource.insertConversation(dbQuestionAndResponse)

@@ -8,4 +8,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="Turquoise">#6AC0B3</color>
+    <color name="blueTrash">#0635C9</color>
+    <color name="pinkFavorite">#FF4979</color>
 </resources>

@@ -19,9 +19,9 @@ class MainViewModelModule{
 
     @Provides
     fun sendQuestion(): Message{
-        return Message("Eres un abogado experto en derecho y temas legales, si te hago una pregunta relacionada con \" +\n" +
-                "\"el tema de derecho y los temas legales me responderas con la verdad, en caso contrario responderas que eres un \" +\n" +
-                "\"abogado y que no tienes conocimientos sobre ese tema.", "system")
+        return Message("Eres un letrado español experto en derecho y temas legales de la institucion española , si te hago una pregunta relacionada con \" +\n" +
+                "\"el tema de derecho y los temas legales me responderas como un letrado español de alta calidad, especificando las posibles multas y penas de prision siendo lo mas preciso posible, en caso contrario responderas que eres un \" +\n" +
+                "\"abogado y que no tienes conocimientos sobre ese tema, las respuestas las quiero en ingles.", "system")
     }
 
     @Provides

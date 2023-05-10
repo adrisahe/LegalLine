@@ -16,6 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import com.example.legalline.R
 
@@ -38,9 +40,13 @@ fun MessagesResponses(conversation: List<String>, contador: Int) {
             ) {
                 Text(
                     text = "Legaline",
-                    style = MaterialTheme.typography.h6
+                    style = MaterialTheme.typography.h6,
+                    fontFamily = FontFamily(Font(R.font.opensans_condensed_bold))
                     )
-                Text(conversation[contador])
+                Text(
+                    conversation[contador],
+                    fontFamily = FontFamily(Font(R.font.opensans_condensed_regular))
+                )
             }
         }
     }

@@ -19,6 +19,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import com.example.legalline.R
 
@@ -44,9 +46,13 @@ fun WelcomeText(){
             ) {
                 Text(
                     text = stringResource(id = R.string.legaline),
-                    style = MaterialTheme.typography.h6
+                    style = MaterialTheme.typography.h6,
+                    fontFamily = FontFamily(Font(R.font.opensans_condensed_bold))
                 )
-                Text(stringResource(id = R.string.welcomeMessage))
+                Text(
+                    stringResource(id = R.string.welcomeMessage),
+                    fontFamily = FontFamily(Font(R.font.opensans_condensed_regular))
+                )
             }
         }
     }

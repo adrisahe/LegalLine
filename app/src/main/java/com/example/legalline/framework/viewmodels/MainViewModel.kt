@@ -26,24 +26,37 @@ class MainViewModel @Inject constructor(
     private val addOrDelete: AddAndDeleteFavoritesConversation
 ) : ViewModel() {
 
+    // value of the send message text
     private val _valueText = MutableStateFlow("")
     val valueText: StateFlow<String> = _valueText.asStateFlow()
 
+    // Respons of the legaline
     private val _responses = MutableStateFlow<List<String>>(emptyList())
     val responses: StateFlow<List<String>> = _responses.asStateFlow()
 
+    // Questions of the users
     private val _questions = MutableStateFlow<List<String>>(emptyList())
     val questions: StateFlow<List<String>> = _questions.asStateFlow()
 
+    // value of the state of the favorite
     private val _favorite = MutableStateFlow(false)
     val favorite: StateFlow<Boolean> = _favorite.asStateFlow()
 
+    // value of the state of the alertDialog
     private val _alertDialog = MutableStateFlow(false)
     val alertDialog: StateFlow<Boolean> = _alertDialog.asStateFlow()
+
+    // value of the state of the dialogText
+    private val _dialogText = MutableStateFlow("")
+    val dialogText: StateFlow<String> = _dialogText
 
 
     fun updateText(message: String) {
         _valueText.value = message
+    }
+
+    fun updateDialogText(text: String){
+        _dialogText.value = text
     }
 
     fun questionAndResponse() {
@@ -67,11 +80,16 @@ class MainViewModel @Inject constructor(
 
     fun favoritesGestion(){
         viewModelScope.launch {
-
-            addOrDelete.updateDatabase(DbQuestionAndResponse("hola", responses.value, questions.value))
+            addOrDelete.updateDatabase(DbQuestionAndResponse(_dialogText.value, responses.value, questions.value))
             addOrDelete.prueba()
             _favorite.value = !_favorite.value
+            _alertDialog.value = !_alertDialog.value
         }
+    }
+
+    fun cancelGestion(){
+        _alertDialog.value = !_alertDialog.value
+        _dialogText.value = ""
     }
 
     fun showDialog(){

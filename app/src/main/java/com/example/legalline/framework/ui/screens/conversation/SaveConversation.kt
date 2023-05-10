@@ -1,20 +1,32 @@
-package com.example.legalline.framework.ui.screens.main
+package com.example.legalline.framework.ui.screens.conversation
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
-import com.example.legalline.framework.viewmodels.MainViewModel
+import com.example.legalline.framework.ui.screens.main.MessagesQuestions
+import com.example.legalline.framework.ui.screens.main.MessagesResponses
+import com.example.legalline.framework.ui.screens.main.NameFavorite
+import com.example.legalline.framework.ui.screens.main.SendButton
+import com.example.legalline.framework.ui.screens.main.SendText
+import com.example.legalline.framework.ui.screens.main.WelcomeText
+import com.example.legalline.framework.viewmodels.ConversationViewModel
 
 @Composable
-fun ContentMainScreen(mainViewModel: MainViewModel) {
-    val responses by mainViewModel.responses.collectAsState()
-    val questions by mainViewModel.questions.collectAsState()
-    val dialog by mainViewModel.alertDialog.collectAsState()
+fun SaveConversation(vm: ConversationViewModel) {
+    val responses by vm.listResponses.collectAsState()
+    val questions by vm.listQuestions.collectAsState()
     ConstraintLayout(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -42,15 +54,6 @@ fun ContentMainScreen(mainViewModel: MainViewModel) {
                     Spacer(modifier = Modifier.size(10.dp))
                     MessagesResponses(responses, messagesList)
                 }
-                if (dialog){
-                    item {
-                        NameFavorite(
-                            mainViewModel = mainViewModel,
-                            favoritesGestion = { mainViewModel.favoritesGestion() },
-                            cancelGestion = { mainViewModel.cancelGestion() }
-                        )
-                    }
-                }
             }
         }
         Row(
@@ -62,9 +65,11 @@ fun ContentMainScreen(mainViewModel: MainViewModel) {
                 }
         ) {
             Box(modifier = Modifier.weight(1f)) {
-                SendText(mainViewModel)
+                //SendText(mainViewModel)
+                Text(text = "h")
             }
-            SendButton(mainViewModel)
+            Text(text = "heretretretrewt")
+            //SendButton(mainViewModel)
         }
     }
 }

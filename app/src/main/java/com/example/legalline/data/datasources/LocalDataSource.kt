@@ -11,7 +11,7 @@ import retrofit2.Call
 interface LocalDataSource {
     suspend fun getAllConversation(): List<DbQuestionAndResponse>
 
-    //suspend fun getConversationById(id: Int): DbQuestionAndResponse
+    suspend fun getConversationById(idNameFavorite: String): DbQuestionAndResponse
 
     suspend fun insertConversation(dbQuestionAndResponse: DbQuestionAndResponse)
 

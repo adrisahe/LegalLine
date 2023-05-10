@@ -9,6 +9,10 @@ class RoomDatabaseGestion(private val dbQuestionAndResponseDao: DbQuestionAndRes
         return dbQuestionAndResponseDao.getAllConversation()
     }
 
+    override suspend fun getConversationById(idNameFavorite: String): DbQuestionAndResponse {
+        return dbQuestionAndResponseDao.getConversationById(idNameFavorite)
+    }
+
     override suspend fun insertConversation(dbQuestionAndResponse: DbQuestionAndResponse) {
         return dbQuestionAndResponseDao.insertConversation(dbQuestionAndResponse)
     }
