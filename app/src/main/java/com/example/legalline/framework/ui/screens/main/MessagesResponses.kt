@@ -26,7 +26,7 @@ fun MessagesResponses(conversation: List<String>, contador: Int) {
     Card(
         shape = RoundedCornerShape(30.dp)
     ) {
-        Row{
+        Row {
             Image(
                 painter = painterResource(id = R.drawable.lawier),
                 contentDescription = "Image Bot",
@@ -42,9 +42,9 @@ fun MessagesResponses(conversation: List<String>, contador: Int) {
                     text = "Legaline",
                     style = MaterialTheme.typography.h6,
                     fontFamily = FontFamily(Font(R.font.opensans_condensed_bold))
-                    )
+                )
                 Text(
-                    conversation[contador],
+                    conversation.getOrNull(contador)?: "Pensando...",
                     fontFamily = FontFamily(Font(R.font.opensans_condensed_regular))
                 )
             }

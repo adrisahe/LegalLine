@@ -2,6 +2,8 @@ package com.example.legalline.framework.ui.screens.main
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.overscroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -32,17 +34,18 @@ fun ContentMainScreen(mainViewModel: MainViewModel) {
         ) {
             LazyColumn(
                 modifier = Modifier.fillMaxSize()
+
             ) {
                 item {
                     WelcomeText()
                 }
-                items(responses.size) { messagesList ->
+                items(questions.size) { messagesList ->
                     Spacer(modifier = Modifier.size(10.dp))
                     MessagesQuestions(questions, messagesList)
                     Spacer(modifier = Modifier.size(10.dp))
                     MessagesResponses(responses, messagesList)
                 }
-                if (dialog){
+                if (dialog) {
                     item {
                         NameFavorite(
                             mainViewModel = mainViewModel,
