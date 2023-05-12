@@ -1,22 +1,31 @@
 package com.example.legalline.framework.ui.screens.main
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.overscroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.legalline.framework.viewmodels.MainViewModel
+import kotlinx.coroutines.launch
 
+@SuppressLint("CoroutineCreationDuringComposition")
 @Composable
 fun ContentMainScreen(mainViewModel: MainViewModel) {
     val responses by mainViewModel.responses.collectAsState()
     val questions by mainViewModel.questions.collectAsState()
     val dialog by mainViewModel.alertDialog.collectAsState()
+    val listState = rememberLazyListState()
+    val scope = rememberCoroutineScope()
     ConstraintLayout(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -33,8 +42,8 @@ fun ContentMainScreen(mainViewModel: MainViewModel) {
                 .padding(top = 40.dp, bottom = 80.dp, start = 10.dp, end = 10.dp)
         ) {
             LazyColumn(
-                modifier = Modifier.fillMaxSize()
-
+                modifier = Modifier.fillMaxSize(),
+                state = listState
             ) {
                 item {
                     WelcomeText()
@@ -44,6 +53,9 @@ fun ContentMainScreen(mainViewModel: MainViewModel) {
                     MessagesQuestions(questions, messagesList)
                     Spacer(modifier = Modifier.size(10.dp))
                     MessagesResponses(responses, messagesList)
+                    scope.launch {
+                        listState.animateScrollToItem(listState.layoutInfo.viewportEndOffset)
+                    }
                 }
                 if (dialog) {
                     item {
