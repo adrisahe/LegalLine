@@ -2,6 +2,7 @@ package com.example.legalline.framework.viewmodels
 
 import androidx.room.Insert
 import com.example.legalline.data.repositories.RoomRepository
+import com.example.legalline.usecases.DeleteAllFavorites
 import com.example.legalline.usecases.DeleteFavorite
 import com.example.legalline.usecases.GetAllFavorites
 import com.example.legalline.usecases.GetFavoriteById
@@ -18,5 +19,8 @@ class FavoriteViewModelProvider {
 
     @Provides
     fun deleteFavorite(repository: RoomRepository) = DeleteFavorite(repository)
+
+    @Provides
+    fun deleteAllFavorites(repository: RoomRepository) = DeleteAllFavorites(repository)
 
 }

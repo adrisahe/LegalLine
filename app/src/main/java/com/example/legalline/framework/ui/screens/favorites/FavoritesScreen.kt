@@ -22,7 +22,7 @@ fun FavoritesScreen(navController: NavHostController, vm: FavoriteViewModel = hi
         AplicationTopBar(
             navController,
             scaffoldState,
-            { FavoriteTopBar(scaffoldState) },
+            { FavoriteTopBar(scaffoldState) { vm.removeAllFavorites() } },
             { ContentFavorites(vm, navController)}
         )
 

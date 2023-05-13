@@ -5,4 +5,9 @@
     <string name="legaline">Legaline</string>
     <string name="welcomeMessage">Buenos días, soy Legaline tu abogado de confianza y experto en temas legales, pregunteme todo lo que necesite</string>
     <string name="dialogTitle">Introduce el nombre de la conversacion</string>
+    <string name="overwriteTitle">Sobreescribir</string>
+    <string name="overwriteDescription">pulse aceptar para sobreescribir la conversacion</string>
+    <string name="addFavorite">Añadir</string>
+    <string name="overwritteAccept">Aceptar</string>
+    <string name="cancel">Cancelar</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.example.legalline.framework.viewmodels
 
+import android.database.sqlite.SQLiteConstraintException
 import android.util.Log
 import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.ViewModel
@@ -48,7 +49,10 @@ class MainViewModel @Inject constructor(
 
     // value of the state of the dialogText
     private val _dialogText = MutableStateFlow("")
-    val dialogText: StateFlow<String> = _dialogText
+    val dialogText: StateFlow<String> = _dialogText.asStateFlow()
+
+    private val _addError = MutableStateFlow(false)
+    val addError: StateFlow<Boolean> = _addError.asStateFlow()
 
 
     fun updateText(message: String) {
@@ -80,16 +84,25 @@ class MainViewModel @Inject constructor(
 
     fun favoritesGestion(){
         viewModelScope.launch {
-            addOrDelete.updateDatabase(DbQuestionAndResponse(_dialogText.value, responses.value, questions.value))
-            addOrDelete.prueba()
-            _favorite.value = !_favorite.value
-            _alertDialog.value = !_alertDialog.value
+            try {
+                addOrDelete.updateDatabase(DbQuestionAndResponse(_dialogText.value, responses.value, questions.value))
+                _valueText.value = ""
+                _questions.value = emptyList()
+                _responses.value = emptyList()
+                _dialogText.value = ""
+                _favorite.value = !_favorite.value
+                _alertDialog.value = !_alertDialog.value
+                _addError.value = false
+            }catch (duplicated: SQLiteConstraintException){
+                _addError.value = true
+            }
         }
     }
 
     fun cancelGestion(){
         _alertDialog.value = !_alertDialog.value
         _dialogText.value = ""
+        _addError.value = false
     }
 
     fun showDialog(){

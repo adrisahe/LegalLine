@@ -13,17 +13,22 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(ViewModelComponent::class)
-class MainViewModelModule{
+class MainViewModelModule {
     @Provides
-    fun SendResponsesAndQuestionProvider(chatGptRepository: ChatGptRepository) = SendResponsesAndQuestion(chatGptRepository)
+    fun SendResponsesAndQuestionProvider(chatGptRepository: ChatGptRepository) =
+        SendResponsesAndQuestion(chatGptRepository)
 
     @Provides
-    fun sendQuestion(): Message{
-        return Message("Eres un letrado español experto en derecho y temas legales de la institucion española , si te hago una pregunta relacionada con \" +\n" +
-                "\"el tema de derecho y los temas legales me responderas como un letrado español de alta calidad, especificando las posibles multas y penas de prision siendo lo mas preciso posible, en caso contrario responderas que eres un \" +\n" +
-                "\"abogado y que no tienes conocimientos sobre ese tema.", "system")
+    fun sendQuestion(): Message {
+        return Message(
+            "Eres un letrado español altamente especializado en derecho que solo responde preguntas relacionadas " +
+                    "con temas legales, tienes un profundo conocimiento en diversas areas del derecho, como lo civil, penal, laboral y administrativo. " +
+                    "pueden hacerte cualquier pregunta legal y le proporcionaras una respuesta detallada y precisa, pero no responderas preguntas " +
+                    "que no estén directamente relacionadas con el ámbito legal.", "system"
+        )
     }
 
     @Provides
-    fun addAndDeleteFavoritesConversation(roomRepository: RoomRepository) = AddAndDeleteFavoritesConversation(roomRepository)
+    fun addAndDeleteFavoritesConversation(roomRepository: RoomRepository) =
+        AddAndDeleteFavoritesConversation(roomRepository)
 }

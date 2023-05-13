@@ -1,8 +1,10 @@
 package com.example.legalline.framework.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.legalline.data.db.DbQuestionAndResponse
+import com.example.legalline.usecases.DeleteAllFavorites
 import com.example.legalline.usecases.DeleteFavorite
 import com.example.legalline.usecases.GetAllFavorites
 import com.example.legalline.usecases.GetFavoriteById
@@ -21,7 +23,8 @@ import javax.inject.Inject
 @HiltViewModel
 class FavoriteViewModel @Inject constructor(
     private val getAllFavorites: GetAllFavorites,
-    private val deleteFavorite: DeleteFavorite
+    private val deleteFavorite: DeleteFavorite,
+    private val deleteAllFavorites: DeleteAllFavorites
 ) : ViewModel() {
     private val _favorites = MutableStateFlow<List<DbQuestionAndResponse>>(emptyList())
     val favorites: StateFlow<List<DbQuestionAndResponse>> = _favorites.asStateFlow()
@@ -41,6 +44,14 @@ class FavoriteViewModel @Inject constructor(
                     questions
                 )
             )
+            _favorites.value = getAllFavorites.getAllRepository()
+        }
+    }
+    fun removeAllFavorites(){
+        viewModelScope.launch {
+            Log.d("::::", "adios")
+            deleteAllFavorites.deleteAllFavorites()
+            Log.d("::::", "hola")
             _favorites.value = getAllFavorites.getAllRepository()
         }
     }

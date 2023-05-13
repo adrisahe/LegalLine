@@ -3,6 +3,7 @@ package com.example.legalline.data.db
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 
@@ -14,7 +15,7 @@ interface DbQuestionAndResponseDao {
     @Query("SELECT * FROM QUESTIONSANDRESPONSES_table WHERE idNameConversation = :idNameConversation")
     suspend fun getConversationById(idNameConversation: String): DbQuestionAndResponse
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insertConversation(dbQuestionAndResponse: DbQuestionAndResponse)
 
     @Delete

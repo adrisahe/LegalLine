@@ -25,41 +25,38 @@ import com.example.legalline.R
 
 @Composable
 fun SideMenu(navController: NavHostController) {
-    TextButton(onClick = {
-        navController.navigate("favorites")
-    }) {
-        Column(
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
+        Box(
             modifier = Modifier
-                .fillMaxSize()
-        ) {
-            Box(
+                .fillMaxWidth()
+                .height(150.dp)
+        )
+        {
+            Image(
+                painter = painterResource(id = R.drawable.balanza_de_la_justicia),
+                contentDescription = "Menu image",
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(150.dp)
+                    .fillMaxSize()
+                    .graphicsLayer(
+                        scaleX = 2.3f,
+                        scaleY = 1.7f
+                    )
             )
-            {
-                Image(
-                    painter = painterResource(id = R.drawable.balanza_de_la_justicia),
-                    contentDescription = "Menu image",
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .graphicsLayer(
-                            scaleX = 2.3f,
-                            scaleY = 1.7f
-                        )
-                )
-            }
-            Spacer(modifier = Modifier.size(47.dp))
-            TextButton(onClick = {
-                navController.navigate("favorites")
-            }) {
-                Text(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    text = stringResource(id = R.string.favorites),
-                    color = MaterialTheme.colors.background
-                )
-            }
+        }
+        Spacer(modifier = Modifier.size(47.dp))
+        TextButton(onClick = {
+            navController.navigate("favorites")
+        }) {
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                text = stringResource(id = R.string.favorites),
+                color = MaterialTheme.colors.background
+            )
         }
     }
+
 }

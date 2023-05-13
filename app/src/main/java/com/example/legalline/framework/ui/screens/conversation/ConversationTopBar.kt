@@ -8,7 +8,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import com.example.legalline.R
-import com.example.legalline.framework.ui.screens.main.FavoriteButton
 import com.example.legalline.framework.ui.screens.main.MenuButton
 import com.example.legalline.framework.viewmodels.ConversationViewModel
 
@@ -18,7 +17,7 @@ fun ConversationTopBar(vm: ConversationViewModel, scaffoldState: ScaffoldState) 
     TopAppBar(
         title = { BasicText(text = stringResource(id = R.string.app_name)) },
         navigationIcon = { MenuButton(scaffoldState, scope) },
-        actions = { EditFavoriteButton() },
+        actions = { EditFavoriteButton(vm) },
         backgroundColor = colorResource(id = R.color.Turquoise),
     )
 }
