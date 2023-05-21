@@ -1,8 +1,8 @@
-package com.example.legalline.usecases
+package com.example.legalline.data.repositories
 
 import com.example.legalline.domain.makeRequest.GptSendData
 import com.example.legalline.domain.receiveResponse.GptResponse
-import com.example.legalline.framework.data.datasources.ChatGptApi
+import com.example.legalline.data.network.ChatGptApi
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -10,7 +10,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class SendResponsesAndQuestion (private val repository: ChatGptApi) {
+class SendResponsesAndQuestionRepository (private val repository: ChatGptApi) {
     suspend fun invoke(message: GptSendData, apiKey: String): String = withContext(Dispatchers.IO){
         val chatResponse = CompletableDeferred<String>()
         repository.sendQuestion(message, apiKey).enqueue(object : Callback<GptResponse>{
@@ -19,7 +19,7 @@ class SendResponsesAndQuestion (private val repository: ChatGptApi) {
                     chatResponse.complete(response.body()?.choices?.get(0)?.message?.content ?: "nulo")
                 }
                 else{
-                    chatResponse.complete("esa pregunta no merece respuesta")
+                    chatResponse.complete("No hay conexion a internet")
                 }
             }
 

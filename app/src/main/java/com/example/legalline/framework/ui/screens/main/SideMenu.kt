@@ -49,7 +49,8 @@ fun SideMenu(navController: NavHostController, scaffoldState: ScaffoldState, isD
                 painter = painterResource(id = R.drawable.balanza_de_la_justicia),
                 contentDescription = "Menu image",
                 modifier = Modifier
-                    .fillMaxSize()
+                    // tengo que coger el tamaño del menu y aplicarselo a la imagen
+                    .fillMaxWidth()
                     .graphicsLayer(
                         scaleX = 2.3f,
                         scaleY = 1.7f

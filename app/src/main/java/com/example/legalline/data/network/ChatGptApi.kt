@@ -1,4 +1,4 @@
-package com.example.legalline.framework.data.datasources
+package com.example.legalline.data.network
 
 import com.example.legalline.domain.makeRequest.GptSendData
 import com.example.legalline.domain.receiveResponse.GptResponse

@@ -1,17 +1,15 @@
 package com.example.legalline.framework.viewmodels
 
 import android.database.sqlite.SQLiteConstraintException
-import android.util.Log
-import android.widget.Toast
-import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.legalline.data.db.DbQuestionAndResponse
+import com.example.legalline.data.db.DbQuestionAndResponseDao
 import com.example.legalline.domain.Message
 import com.example.legalline.domain.makeRequest.GptSendData
-import com.example.legalline.usecases.AddAndDeleteFavoritesConversation
-import com.example.legalline.usecases.SendResponsesAndQuestion
+import com.example.legalline.data.repositories.SendResponsesAndQuestionRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -22,10 +20,10 @@ import javax.inject.Named
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val sendResponsesAndQuestion: SendResponsesAndQuestion,
+    private val sendResponsesAndQuestionRepository: SendResponsesAndQuestionRepository,
     @Named("apiKey") private val apiKey: String,
     private val mensajeAbogado: Message,
-    private val addOrDelete: AddAndDeleteFavoritesConversation
+    private val dataBase: DbQuestionAndResponseDao
 ) : ViewModel() {
 
     // valor del textField que envia el usuario
@@ -68,9 +66,9 @@ class MainViewModel @Inject constructor(
     }
 
     fun questionAndResponse() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             _loading.value = true
-            _responses.value = _responses.value + listOf(sendResponsesAndQuestion.invoke(sendQuestion(), apiKey))
+            _responses.value = _responses.value + listOf(sendResponsesAndQuestionRepository.invoke(sendQuestion(), apiKey))
             _loading.value = false
         }
     }
@@ -90,12 +88,12 @@ class MainViewModel @Inject constructor(
     }
 
     fun favoritesGestion() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             if (_dialogText.value.length < 5) {
                 _addError.value = true
             } else {
                 try {
-                    addOrDelete.updateDatabase(
+                    dataBase.insertConversation(
                         DbQuestionAndResponse(
                             _dialogText.value,
                             responses.value,

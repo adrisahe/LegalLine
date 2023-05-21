@@ -6,9 +6,9 @@ import com.example.legalline.data.db.DbQuestionAndResponse
 import com.example.legalline.data.db.DbQuestionAndResponseDao
 import com.example.legalline.domain.Message
 import com.example.legalline.domain.makeRequest.GptSendData
-import com.example.legalline.usecases.AddAndDeleteFavoritesConversation
-import com.example.legalline.usecases.SendResponsesAndQuestion
+import com.example.legalline.data.repositories.SendResponsesAndQuestionRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -20,10 +20,10 @@ import javax.inject.Named
 class ConversationViewModel @Inject constructor(
     @Named("idNameFavorite") private val idNameFavorite: String,
     repository: DbQuestionAndResponseDao,
-    private val sendResponsesAndQuestion: SendResponsesAndQuestion,
+    private val sendResponsesAndQuestionRepository: SendResponsesAndQuestionRepository,
     @Named("apiKey") private val apiKey: String,
     private val mensajeAbogado: Message,
-    private val addOrDelete: AddAndDeleteFavoritesConversation
+    private val dataBase: DbQuestionAndResponseDao
 ) : ViewModel() {
     private val _nameFavorite = MutableStateFlow("")
     val nameFavorite: StateFlow<String> = _nameFavorite.asStateFlow()
@@ -46,7 +46,7 @@ class ConversationViewModel @Inject constructor(
     val loading: StateFlow<Boolean> = _loading.asStateFlow()
 
     init {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val conversacion = repository.getConversationById(idNameFavorite)
             _nameFavorite.value = conversacion.idNameConversation
             _listQuestions.value = conversacion.questions
@@ -59,10 +59,10 @@ class ConversationViewModel @Inject constructor(
     }
 
     fun questionAndResponse() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             _loading.value = true
             _listResponses.value =
-                _listResponses.value + listOf(sendResponsesAndQuestion.invoke(sendQuestion(), apiKey))
+                _listResponses.value + listOf(sendResponsesAndQuestionRepository.invoke(sendQuestion(), apiKey))
             _loading.value = false
         }
     }
@@ -82,8 +82,8 @@ class ConversationViewModel @Inject constructor(
     }
 
     fun overwritteFavorite(){
-        viewModelScope.launch {
-            addOrDelete.overwritteFavorite(DbQuestionAndResponse(_nameFavorite.value, _listResponses.value, _listQuestions.value))
+        viewModelScope.launch(Dispatchers.IO) {
+            dataBase.overWritteConversation(DbQuestionAndResponse(_nameFavorite.value, _listResponses.value, _listQuestions.value))
             _alertDialog.value = !_alertDialog.value
         }
     }

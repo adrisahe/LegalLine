@@ -96,6 +96,8 @@ fun ThinkingResponse() {
 
     Text(
         text = "Pensando$addPoints",
-        modifier = Modifier.defaultMinSize(100.dp)
+        modifier = Modifier.defaultMinSize(100.dp),
+        fontFamily = FontFamily(Font(R.font.opensans_condensed_regular)),
+        color = MaterialTheme.colors.onError,
     )
 }

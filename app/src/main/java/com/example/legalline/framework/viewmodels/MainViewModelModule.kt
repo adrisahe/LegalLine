@@ -1,10 +1,8 @@
 package com.example.legalline.framework.viewmodels
 
-import com.example.legalline.data.db.DbQuestionAndResponseDao
 import com.example.legalline.domain.Message
-import com.example.legalline.framework.data.datasources.ChatGptApi
-import com.example.legalline.usecases.AddAndDeleteFavoritesConversation
-import com.example.legalline.usecases.SendResponsesAndQuestion
+import com.example.legalline.data.network.ChatGptApi
+import com.example.legalline.data.repositories.SendResponsesAndQuestionRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,8 +12,8 @@ import dagger.hilt.android.components.ViewModelComponent
 @InstallIn(ViewModelComponent::class)
 class MainViewModelModule {
     @Provides
-    fun SendResponsesAndQuestionProvider(chatGptRepository: ChatGptApi) =
-        SendResponsesAndQuestion(chatGptRepository)
+    fun sendResponsesAndQuestionRepositoryProvider(chatGptRepository: ChatGptApi) =
+        SendResponsesAndQuestionRepository(chatGptRepository)
 
     @Provides
     fun sendQuestion(): Message {
@@ -29,8 +27,4 @@ class MainViewModelModule {
                     " no sea un letrado diras exactamente que eres un letrado español y que no puedes realizar tareas fuera de tu ámbito", "system"
         )
     }
-
-    @Provides
-    fun addAndDeleteFavoritesConversation(roomRepository: DbQuestionAndResponseDao) =
-        AddAndDeleteFavoritesConversation(roomRepository)
 }

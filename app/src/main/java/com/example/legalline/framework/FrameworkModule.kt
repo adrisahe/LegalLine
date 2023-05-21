@@ -2,7 +2,7 @@ package com.example.legalline.framework
 
 import android.content.Context
 import com.example.legalline.R
-import com.example.legalline.framework.data.datasources.ChatGptApi
+import com.example.legalline.data.network.ChatGptApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

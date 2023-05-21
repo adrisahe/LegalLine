@@ -16,9 +16,4 @@ class ConversationViewModelModule {
     fun idNameFavoriteProvider(stateHandle: SavedStateHandle): String{
         return stateHandle.get<String>("idNameFavorite")?: throw IllegalStateException("id name favorites no disponible")
     }
-
-  // @Provides
-  // suspend fun getConversationByIdProvider(@Named("idNameFavorite") idNameFavorite: String, repository: RoomRepository): DbQuestionAndResponse{
-  //     return repository.getConversationById(idNameFavorite)
-  // }
 }
