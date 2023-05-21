@@ -1,9 +1,6 @@
 package com.example.legalline.framework.viewmodels
 
 import androidx.lifecycle.SavedStateHandle
-import com.example.legalline.data.db.DbQuestionAndResponse
-import com.example.legalline.data.repositories.RoomRepository
-import com.example.legalline.usecases.GetFavoriteById
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

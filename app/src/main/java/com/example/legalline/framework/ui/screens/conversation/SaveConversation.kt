@@ -1,7 +1,6 @@
 package com.example.legalline.framework.ui.screens.conversation
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -11,19 +10,18 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.legalline.framework.ui.screens.main.MessagesQuestions
 import com.example.legalline.framework.ui.screens.main.MessagesResponses
-import com.example.legalline.framework.ui.screens.main.NameFavorite
-import com.example.legalline.framework.ui.screens.main.SendButton
-import com.example.legalline.framework.ui.screens.main.SendText
 import com.example.legalline.framework.ui.screens.main.WelcomeText
 import com.example.legalline.framework.viewmodels.ConversationViewModel
 import kotlinx.coroutines.launch
@@ -49,13 +47,20 @@ fun SaveConversation(vm: ConversationViewModel) {
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
                 }
-                .padding(top = 40.dp, bottom = 80.dp, start = 10.dp, end = 10.dp)
+                .padding(top = 40.dp, bottom = 40.dp)
         ) {
             LazyColumn(
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier.fillMaxSize(),
+                state = listState
             ) {
                 item {
                     WelcomeText()
+                    if (dialog) {
+                        OverwriteFavorite(
+                            vm = vm,
+                            cancelGestion = { vm.cancelGestion() }
+                        )
+                    }
                 }
                 items(questions.size) { messagesList ->
                     Spacer(modifier = Modifier.size(10.dp))
@@ -65,16 +70,14 @@ fun SaveConversation(vm: ConversationViewModel) {
                     scope.launch {
                         listState.animateScrollToItem(listState.layoutInfo.viewportEndOffset)
                     }
-                }
-                if (dialog) {
-                    item {
+                    if (dialog) {
                         OverwriteFavorite(
                             vm = vm,
-                            favoritesGestion = { vm.favoritesGestion() },
                             cancelGestion = { vm.cancelGestion() }
                         )
                     }
                 }
+
             }
         }
         Row(
@@ -83,7 +86,8 @@ fun SaveConversation(vm: ConversationViewModel) {
                 .padding(5.dp)
                 .constrainAs(rowWriteSend) {
                     bottom.linkTo(parent.bottom)
-                }
+                },
+            verticalAlignment = Alignment.Bottom
         ) {
             Box(modifier = Modifier.weight(1f)) {
                 SendTextFavorite(vm)

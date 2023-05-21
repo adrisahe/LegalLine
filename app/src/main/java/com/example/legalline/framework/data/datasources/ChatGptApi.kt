@@ -11,7 +11,4 @@ interface ChatGptApi {
     @POST("chat/completions")
     fun sendQuestion(@Body mesage: GptSendData, @Header("Authorization") apiKey: String): Call<GptResponse>
 
-    @POST("chat/completions")
-    fun prueba(@Body mesage: GptSendData, @Header("Authorization") apiKey: String): Call<GptResponse>
-
 }

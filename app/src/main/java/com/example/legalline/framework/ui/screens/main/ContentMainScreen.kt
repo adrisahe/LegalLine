@@ -12,6 +12,7 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -39,7 +40,7 @@ fun ContentMainScreen(mainViewModel: MainViewModel) {
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
                 }
-                .padding(top = 40.dp, bottom = 80.dp, start = 10.dp, end = 10.dp)
+                .padding(top = 40.dp, bottom = 40.dp)
         ) {
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
@@ -47,6 +48,13 @@ fun ContentMainScreen(mainViewModel: MainViewModel) {
             ) {
                 item {
                     WelcomeText()
+                    if (dialog) {
+                        NameFavorite(
+                            mainViewModel = mainViewModel,
+                            favoritesGestion = { mainViewModel.favoritesGestion() },
+                            cancelGestion = { mainViewModel.cancelGestion() }
+                        )
+                    }
                 }
                 items(questions.size) { messagesList ->
                     Spacer(modifier = Modifier.size(10.dp))
@@ -56,9 +64,7 @@ fun ContentMainScreen(mainViewModel: MainViewModel) {
                     scope.launch {
                         listState.animateScrollToItem(listState.layoutInfo.viewportEndOffset)
                     }
-                }
-                if (dialog) {
-                    item {
+                    if (dialog) {
                         NameFavorite(
                             mainViewModel = mainViewModel,
                             favoritesGestion = { mainViewModel.favoritesGestion() },
@@ -66,6 +72,7 @@ fun ContentMainScreen(mainViewModel: MainViewModel) {
                         )
                     }
                 }
+
             }
         }
         Row(
@@ -74,7 +81,8 @@ fun ContentMainScreen(mainViewModel: MainViewModel) {
                 .padding(5.dp)
                 .constrainAs(rowWriteSend) {
                     bottom.linkTo(parent.bottom)
-                }
+                },
+            verticalAlignment = Alignment.Bottom
         ) {
             Box(modifier = Modifier.weight(1f)) {
                 SendText(mainViewModel)

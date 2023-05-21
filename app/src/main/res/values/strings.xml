@@ -10,4 +10,10 @@
     <string name="addFavorite">Añadir</string>
     <string name="overwritteAccept">Aceptar</string>
     <string name="cancel">Cancelar</string>
+    <!-- Screen favorites -->
+    <string name="light">Tema claro</string>
+    <string name="dark">Tema oscuro</string>
+    <string name="favoritesContent">No hay conversaciones guardadas</string>
+    <string name="trashIcon">Icono de papelera</string>
+    <string name="saveFavorite">Guardar</string>
 </resources>

@@ -1,12 +1,12 @@
 package com.example.legalline.framework.ui.screens.aplication_app_bar
 
 import android.annotation.SuppressLint
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.ScaffoldState
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.res.colorResource
+import androidx.compose.runtime.MutableState
 import androidx.navigation.NavHostController
-import com.example.legalline.R
 import com.example.legalline.framework.ui.screens.main.SideMenu
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -14,6 +14,7 @@ import com.example.legalline.framework.ui.screens.main.SideMenu
 fun AplicationTopBar(
     navController: NavHostController,
     scaffoldState: ScaffoldState,
+    isDarkTheme: MutableState<Boolean>,
     topAppBar: @Composable () -> Unit,
     content: @Composable () -> Unit
 ) {
@@ -23,9 +24,9 @@ fun AplicationTopBar(
             topAppBar()
         },
         drawerContent = {
-            SideMenu(navController)
+            SideMenu(navController, scaffoldState, isDarkTheme)
         },
-        drawerBackgroundColor = colorResource(id = R.color.Turquoise)
+        drawerBackgroundColor = MaterialTheme.colors.primary
     ) {
         content()
     }

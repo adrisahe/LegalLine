@@ -9,6 +9,8 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -17,8 +19,11 @@ import com.example.legalline.framework.viewmodels.MainViewModel
 
 @Composable
 fun SendButton(vm: ConversationViewModel) {
+    val loading by vm.loading.collectAsState()
     IconButton(
         onClick = { vm.questionAndResponse() },
+        modifier = Modifier.padding(bottom = 15.dp),
+        enabled = !loading
     ) {
         Icon(
             Icons.Default.Send,

@@ -1,10 +1,15 @@
 package com.example.legalline.framework.ui.screens.main
 
 import android.content.ClipData
+import android.content.res.Resources.Theme
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
@@ -29,21 +34,25 @@ import com.example.legalline.R
 
 @Composable
 fun MessagesQuestions(questions: List<String>, contador: Int) {
-    Box(modifier = Modifier
-        .fillMaxWidth()
-    ){
+    Row(
+        horizontalArrangement = Arrangement.End,
+        modifier = Modifier.fillMaxWidth()
+    ) {
         Card(
-            backgroundColor = Color(0xFF79D7E2),
-            shape = RoundedCornerShape(30.dp),
-            modifier = Modifier.align(Alignment.CenterEnd)
+            backgroundColor = MaterialTheme.colors.secondaryVariant,
+            shape = RoundedCornerShape(15.dp),
+            modifier = Modifier
+                .padding(start = 60.dp, end = 10.dp)
+                .wrapContentSize()
         ) {
             Text(
                 text = questions[contador],
-                textAlign = TextAlign.Right,
-                style = MaterialTheme.typography.body1,
-                modifier = Modifier.padding(10.dp),
-                fontFamily = FontFamily(Font(R.font.opensans_condensed_regular))
+                textAlign = TextAlign.Left,
+                fontFamily = FontFamily(Font(R.font.opensans_condensed_regular)),
+                color = MaterialTheme.colors.onError,
+                modifier = Modifier.padding(10.dp)
             )
         }
     }
+
 }

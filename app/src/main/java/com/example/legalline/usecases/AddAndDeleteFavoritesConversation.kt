@@ -1,10 +1,9 @@
 package com.example.legalline.usecases
 
-import android.util.Log
 import com.example.legalline.data.db.DbQuestionAndResponse
-import com.example.legalline.data.repositories.RoomRepository
+import com.example.legalline.data.db.DbQuestionAndResponseDao
 
-class AddAndDeleteFavoritesConversation(private val repository: RoomRepository) {
+class AddAndDeleteFavoritesConversation(private val repository: DbQuestionAndResponseDao) {
 
 
     suspend fun updateDatabase(dbQuestionAndResponse: DbQuestionAndResponse){
@@ -12,10 +11,6 @@ class AddAndDeleteFavoritesConversation(private val repository: RoomRepository) 
     }
 
     suspend fun overwritteFavorite(dbQuestionAndResponse: DbQuestionAndResponse){
-        repository.insertConversation(dbQuestionAndResponse)
-    }
-
-    suspend fun prueba(){
-        Log.d("::::", "${repository.getAllConversation()}")
+        repository.overWritteConversation(dbQuestionAndResponse)
     }
 }

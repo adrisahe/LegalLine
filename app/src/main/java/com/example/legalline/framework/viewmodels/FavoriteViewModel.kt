@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -29,9 +30,17 @@ class FavoriteViewModel @Inject constructor(
     private val _favorites = MutableStateFlow<List<DbQuestionAndResponse>>(emptyList())
     val favorites: StateFlow<List<DbQuestionAndResponse>> = _favorites.asStateFlow()
 
+    private val _oneDeleteConversation = MutableStateFlow(false)
+    val oneDeleteConversation: StateFlow<Boolean> = _oneDeleteConversation.asStateFlow()
+
+    private val _allDeleteConversation = MutableStateFlow(false)
+    val allDeleteConversation: StateFlow<Boolean> = _allDeleteConversation.asStateFlow()
+
     init {
         viewModelScope.launch {
-            _favorites.value = getAllFavorites.getAllRepository()
+            getAllFavorites.getAllRepository().collect{
+                _favorites.value = it
+            }
         }
     }
 
@@ -44,7 +53,9 @@ class FavoriteViewModel @Inject constructor(
                     questions
                 )
             )
-            _favorites.value = getAllFavorites.getAllRepository()
+            getAllFavorites.getAllRepository().collect{
+                _favorites.value = it
+            }
         }
     }
     fun removeAllFavorites(){
@@ -52,7 +63,13 @@ class FavoriteViewModel @Inject constructor(
             Log.d("::::", "adios")
             deleteAllFavorites.deleteAllFavorites()
             Log.d("::::", "hola")
-            _favorites.value = getAllFavorites.getAllRepository()
+            getAllFavorites.getAllRepository().collect{
+                _favorites.value = it
+            }
         }
+    }
+
+    fun oneDeleteConversation(){
+        _oneDeleteConversation.value = !_oneDeleteConversation.value
     }
 }

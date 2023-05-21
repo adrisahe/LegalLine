@@ -52,6 +52,7 @@ kapt{
 }
 
 dependencies {
+    implementation "com.google.accompanist:accompanist-systemuicontroller:0.16.0"
     // room
     implementation "androidx.room:room-ktx:2.5.1"
     kapt "androidx.room:room-compiler:2.5.1"

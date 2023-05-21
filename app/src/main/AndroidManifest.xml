@@ -14,8 +14,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LegalLine"
         tools:targetApi="31">
+
+        <!-- El windowSoftInputMode hace que al pulsar el teclado se ajuste a la pantalla y no mueva los elementos -->
         <activity
             android:name=".framework.MainActivity"
+            android:windowSoftInputMode="adjustResize"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.LegalLine">

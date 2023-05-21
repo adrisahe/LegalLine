@@ -2,6 +2,7 @@ package com.example.legalline.framework.viewmodels
 
 import android.database.sqlite.SQLiteConstraintException
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -27,54 +28,60 @@ class MainViewModel @Inject constructor(
     private val addOrDelete: AddAndDeleteFavoritesConversation
 ) : ViewModel() {
 
-    // value of the send message text
+    // valor del textField que envia el usuario
     private val _valueText = MutableStateFlow("")
     val valueText: StateFlow<String> = _valueText.asStateFlow()
 
-    // Respons of the legaline
+    // Respuestas de legaline
     private val _responses = MutableStateFlow<List<String>>(emptyList())
     val responses: StateFlow<List<String>> = _responses.asStateFlow()
 
-    // Questions of the users
+    // Preguntas del usuario
     private val _questions = MutableStateFlow<List<String>>(emptyList())
     val questions: StateFlow<List<String>> = _questions.asStateFlow()
 
-    // value of the state of the favorite
-    private val _favorite = MutableStateFlow(false)
-    val favorite: StateFlow<Boolean> = _favorite.asStateFlow()
-
-    // value of the state of the alertDialog
+    // valor que controla cuando se muestra el alertDialog para guardar el favorito
     private val _alertDialog = MutableStateFlow(false)
     val alertDialog: StateFlow<Boolean> = _alertDialog.asStateFlow()
 
-    // value of the state of the dialogText
+    // valor del textField del alertDialog
     private val _dialogText = MutableStateFlow("")
     val dialogText: StateFlow<String> = _dialogText.asStateFlow()
 
+    // valor que indica si se ha introducido un valor erroneo en alertDialog
     private val _addError = MutableStateFlow(false)
     val addError: StateFlow<Boolean> = _addError.asStateFlow()
+
+    // valor que indica si legaline esta pensando
+    private val _loading = MutableStateFlow(false)
+    val loading: StateFlow<Boolean> = _loading.asStateFlow()
 
 
     fun updateText(message: String) {
         _valueText.value = message
     }
 
-    fun updateDialogText(text: String){
-        _dialogText.value = text
+    fun updateDialogText(text: String) {
+        if (text.length <= 30) {
+            _dialogText.value = text
+        }
     }
 
     fun questionAndResponse() {
         viewModelScope.launch {
-            _responses.value =
-                _responses.value + listOf(sendResponsesAndQuestion.invoke(sendQuestion(), apiKey))
+            _loading.value = true
+            _responses.value = _responses.value + listOf(sendResponsesAndQuestion.invoke(sendQuestion(), apiKey))
+            _loading.value = false
         }
     }
 
     private fun sendQuestion(): GptSendData {
         _questions.value = _questions.value.plus(_valueText.value)
         val mensaje = Message(_valueText.value, "user")
+        val mensaje2 =
+            Message(_responses.value.getOrNull(_responses.value.lastIndex) ?: "", "assistant")
         _valueText.value = ""
-        val listaMensajes = listOf(mensajeAbogado, mensaje)
+        val listaMensajes = listOf(mensajeAbogado, mensaje2, mensaje)
         val cuerpoMensaje = GptSendData(
             listaMensajes, "gpt-3.5-turbo" +
                     "", 0.7
@@ -82,30 +89,39 @@ class MainViewModel @Inject constructor(
         return cuerpoMensaje
     }
 
-    fun favoritesGestion(){
+    fun favoritesGestion() {
         viewModelScope.launch {
-            try {
-                addOrDelete.updateDatabase(DbQuestionAndResponse(_dialogText.value, responses.value, questions.value))
-                _valueText.value = ""
-                _questions.value = emptyList()
-                _responses.value = emptyList()
-                _dialogText.value = ""
-                _favorite.value = !_favorite.value
-                _alertDialog.value = !_alertDialog.value
-                _addError.value = false
-            }catch (duplicated: SQLiteConstraintException){
+            if (_dialogText.value.length < 5) {
                 _addError.value = true
+            } else {
+                try {
+                    addOrDelete.updateDatabase(
+                        DbQuestionAndResponse(
+                            _dialogText.value,
+                            responses.value,
+                            questions.value
+                        )
+                    )
+                    _valueText.value = ""
+                    _questions.value = emptyList()
+                    _responses.value = emptyList()
+                    _dialogText.value = ""
+                    _alertDialog.value = !_alertDialog.value
+                    _addError.value = false
+                } catch (duplicated: SQLiteConstraintException) {
+                    _addError.value = true
+                }
             }
         }
     }
 
-    fun cancelGestion(){
+    fun cancelGestion() {
         _alertDialog.value = !_alertDialog.value
         _dialogText.value = ""
         _addError.value = false
     }
 
-    fun showDialog(){
+    fun showDialog() {
         _alertDialog.value = !_alertDialog.value
     }
 }

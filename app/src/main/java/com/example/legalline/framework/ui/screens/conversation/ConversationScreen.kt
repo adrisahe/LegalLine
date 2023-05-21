@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Surface
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -13,13 +14,14 @@ import com.example.legalline.framework.viewmodels.ConversationViewModel
 @Composable
 fun ConversationScreen(
     navController: NavHostController,
+    isDarkTheme: MutableState<Boolean>,
     vm: ConversationViewModel = hiltViewModel(),
 ) {
     val scaffoldState = rememberScaffoldState()
     Surface(
         modifier = Modifier.fillMaxSize()
     ) {
-        AplicationTopBar(navController, scaffoldState, {
+        AplicationTopBar(navController, scaffoldState, isDarkTheme, {
             ConversationTopBar(vm, scaffoldState)
         }) {
             SaveConversation(vm)

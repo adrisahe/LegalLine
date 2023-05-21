@@ -1,5 +1,6 @@
 package com.example.legalline.framework.ui.screens.favorites
 
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
@@ -19,11 +20,11 @@ fun FavoriteTopBar(scaffoldState: ScaffoldState, removeAllFavorites: () -> Unit)
         title = {
             Text(
                 text = stringResource(id = R.string.favorites),
-                fontFamily = FontFamily(Font(R.font.opensans_condensed_regular))
+                fontFamily = FontFamily(Font(R.font.opensans_condensed_bold))
             )
         },
         actions = { DeleteAllButton(removeAllFavorites)},
         navigationIcon = { MenuButton(scaffoldState, scope) },
-        backgroundColor = colorResource(id = R.color.Turquoise),
+        backgroundColor = MaterialTheme.colors.primary,
     )
 }
