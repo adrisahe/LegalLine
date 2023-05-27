@@ -8,9 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.res.colorResource
-import com.example.legalline.R
-import com.example.legalline.framework.ui.screens.main.MenuButton
+import com.example.legalline.framework.ui.common.MenuButton
 import com.example.legalline.framework.viewmodels.ConversationViewModel
 
 @Composable

@@ -5,25 +5,32 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.legalline.data.db.DbQuestionAndResponse
 import com.example.legalline.data.db.DbQuestionAndResponseDao
+import com.example.legalline.data.repositories.SendResponsesAndQuestionRepository
+import com.example.legalline.data.utils.identifierLanguage
 import com.example.legalline.domain.Message
 import com.example.legalline.domain.makeRequest.GptSendData
-import com.example.legalline.data.repositories.SendResponsesAndQuestionRepository
+import com.google.mlkit.nl.languageid.LanguageIdentifier
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Named
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val sendResponsesAndQuestionRepository: SendResponsesAndQuestionRepository,
     @Named("apiKey") private val apiKey: String,
-    private val mensajeAbogado: Message,
-    private val dataBase: DbQuestionAndResponseDao
+    @MainViewModelModule.SpanishMessage private val mensajeAbogado: Message,
+    @MainViewModelModule.EnglishMessage private val mensajeAbogado2: Message,
+    private val dataBase: DbQuestionAndResponseDao,
+    private val identifierLanguage: LanguageIdentifier
 ) : ViewModel() {
 
     // valor del textField que envia el usuario
@@ -54,6 +61,12 @@ class MainViewModel @Inject constructor(
     private val _loading = MutableStateFlow(false)
     val loading: StateFlow<Boolean> = _loading.asStateFlow()
 
+    private val _language = MutableStateFlow("")
+
+    fun setLanguage(language: String) {
+        _language.value = language
+    }
+
 
     fun updateText(message: String) {
         _valueText.value = message
@@ -68,7 +81,8 @@ class MainViewModel @Inject constructor(
     fun questionAndResponse() {
         viewModelScope.launch(Dispatchers.IO) {
             _loading.value = true
-            _responses.value = _responses.value + listOf(sendResponsesAndQuestionRepository.invoke(sendQuestion(), apiKey))
+            val response = sendResponsesAndQuestionRepository.invoke(sendQuestion(), apiKey)
+            _responses.value = _responses.value + listOf(response.identifierLanguage(identifierLanguage, _language))
             _loading.value = false
         }
     }
@@ -79,17 +93,20 @@ class MainViewModel @Inject constructor(
         val mensaje2 =
             Message(_responses.value.getOrNull(_responses.value.lastIndex) ?: "", "assistant")
         _valueText.value = ""
-        val listaMensajes = listOf(mensajeAbogado, mensaje2, mensaje)
-        val cuerpoMensaje = GptSendData(
+        val listaMensajes: List<Message> = if (_language.value == "es") {
+            listOf(mensajeAbogado, mensaje2, mensaje)
+        } else {
+            listOf(mensajeAbogado2, mensaje2, mensaje)
+        }
+        return GptSendData(
             listaMensajes, "gpt-3.5-turbo" +
-                    "", 0.7
+                    "", 0.0
         )
-        return cuerpoMensaje
     }
 
     fun favoritesGestion() {
         viewModelScope.launch(Dispatchers.IO) {
-            if (_dialogText.value.length < 5) {
+            if (_dialogText.value.trim().length < 5) {
                 _addError.value = true
             } else {
                 try {
@@ -122,4 +139,5 @@ class MainViewModel @Inject constructor(
     fun showDialog() {
         _alertDialog.value = !_alertDialog.value
     }
+
 }

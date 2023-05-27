@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="welcomeMessage">Good morning! I\'m Legaline, your trusted attorney and legal expert. Feel free to ask me anything you need</string>
+    <string name="dialogTitle">Enter the name of the conversation.</string>
+    <string name="iconFavoriteDescription">favorites icon</string>
+    <string name="iconMenu">menu icon</string>
+    <string name="saveFavorite">save</string>
+    <string name="nameConversation">Conversation name</string>
+    <string name="overwritteAccept">Accept</string>
+    <string name="favoritesContent">There are no saved conversations</string>
+    <string name="trashIcon">trash icon</string>
+    <string name="deleteAllDescription">delete all icon</string>
+    <string name="EditFavoriteDescription">edit favorite</string>
+    <string name="overwriteTitle">Overwrite</string>
+    <string name="overwriteDescription">Press accept to overwrite the conversation</string>
+    <string name="addFavorite">Add</string>
+    <string name="cancel">Cancel</string>
+    <string name="thinking">Thinking</string>
+    <string name="iconSend">send icon</string>
+    <string name="placeholderMessage">message</string>
+    <string name="imageLegaline">legaline image</string>
+    <string name="favorites">Favorites</string>
+    <string name="light">Light theme</string>
+    <string name="dark">Dark theme</string>
+    <string name="imageJustice">mage of the scales of justice</string>
+    <string name="language">Language</string>
+    <string name="iconArrow">Arrow icon</string>
+    <string name="titlelanguageDialog">Language</string>
+    <string name="descriptionLanguageDialog">Select the language of the application, the lawyer will have knowledge about the country of the selected language.</string>
+    <string name="spanish">Spanish</string>
+    <string name="english">English</string>
+    <string name="responseError">Error, please check your internet connection or try again later.</string>
+</resources>

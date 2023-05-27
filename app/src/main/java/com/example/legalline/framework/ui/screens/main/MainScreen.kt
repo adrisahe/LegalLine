@@ -15,15 +15,21 @@ import com.example.legalline.framework.viewmodels.MainViewModel
  * Pantalla principal de la aplicación
  */
 @Composable
-fun MainScreen(navController: NavHostController, isDarkTheme: MutableState<Boolean>, mainViewModel: MainViewModel = hiltViewModel()) {
+fun MainScreen(
+    navController: NavHostController,
+    isDarkTheme: MutableState<Boolean>,
+    language: MutableState<java.util.Locale>,
+    mainViewModel: MainViewModel = hiltViewModel()
+) {
+    mainViewModel.setLanguage(language.value.language)
     val scaffoldState = rememberScaffoldState()
     Surface(
         modifier = Modifier
             .fillMaxSize()
     ) {
         AplicationTopBar(
-            navController, scaffoldState, isDarkTheme,
+            navController, scaffoldState, isDarkTheme, language,
             { MainTopBar(scaffoldState, mainViewModel) }
-        ) { ContentMainScreen(mainViewModel) }
+        ) { ContentMainScreen(mainViewModel, language) }
     }
 }

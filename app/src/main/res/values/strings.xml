@@ -1,19 +1,44 @@
 <resources>
-    <string name="app_name">LegalLine</string>
-    <string name="apy_key">Bearer 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</string>
-    <string name="favorites">Favoritos</string>
-    <string name="legaline">Legaline</string>
+    <!-- Screen main -->
+    <string name="app_name" translatable="false">LegalLine</string>
+    <string name="apy_key" translatable="false">Bearer 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</string>
+    <string name="legaline" translatable="false">Legaline</string>
     <string name="welcomeMessage">Buenos días, soy Legaline tu abogado de confianza y experto en temas legales, pregunteme todo lo que necesite</string>
     <string name="dialogTitle">Introduce el nombre de la conversacion</string>
+    <string name="iconFavoriteDescription">Icono de favoritos</string>
+    <string name="iconMenu">Icono de menu</string>
+    <string name="saveFavorite">Guardar</string>
+    <string name="nameConversation">Nombre de la conversación</string>
+    <string name="overwritteAccept">Aceptar</string>
+
+
+    <!-- Screen favorites -->
+    <string name="favoritesContent">No hay conversaciones guardadas</string>
+    <string name="trashIcon">Icono de papelera</string>
+    <string name="deleteAllDescription">Icono eliminar todo</string>
+
+    <!-- Screen conversation -->
+    <string name="EditFavoriteDescription">editar favorito</string>
     <string name="overwriteTitle">Sobreescribir</string>
     <string name="overwriteDescription">pulse aceptar para sobreescribir la conversacion</string>
     <string name="addFavorite">Añadir</string>
-    <string name="overwritteAccept">Aceptar</string>
+
+    <!-- Common -->
     <string name="cancel">Cancelar</string>
-    <!-- Screen favorites -->
+    <string name="thinking">Pensando</string>
+    <string name="iconSend">Icono de enviar</string>
+    <string name="placeholderMessage">Mensaje</string>
+    <string name="imageLegaline">Imagen de legaline</string>
+    <string name="titleResponse" translatable="false">Legaline</string>
+    <string name="favorites">Favoritos</string>
     <string name="light">Tema claro</string>
     <string name="dark">Tema oscuro</string>
-    <string name="favoritesContent">No hay conversaciones guardadas</string>
-    <string name="trashIcon">Icono de papelera</string>
-    <string name="saveFavorite">Guardar</string>
+    <string name="imageJustice">Imagen balanza de la justicia</string>
+    <string name="language">Idioma</string>
+    <string name="iconArrow">Icono flecha</string>
+    <string name="titlelanguageDialog">Idioma</string>
+    <string name="descriptionLanguageDialog">Seleccione el idioma de la aplicación, el letrado tendra conocimientos sobre el país del idioma seleccionado.</string>
+    <string name="spanish">Español</string>
+    <string name="english">Inglés</string>
+    <string name="responseError">Error, compruebe su conexión a internet o vuelvelo a intentar más tarde</string>
 </resources>

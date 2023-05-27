@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.legalline"
-        minSdk 21
+        minSdk 23
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -52,6 +52,11 @@ kapt{
 }
 
 dependencies {
+    // detectar idioma
+    implementation 'com.google.mlkit:language-id:17.0.4'
+    implementation 'com.google.android.gms:play-services-mlkit-language-id:17.0.0'
+
+
     implementation "com.google.accompanist:accompanist-systemuicontroller:0.16.0"
     // room
     implementation "androidx.room:room-ktx:2.5.1"

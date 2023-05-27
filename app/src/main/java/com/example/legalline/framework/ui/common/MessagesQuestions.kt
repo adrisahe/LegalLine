@@ -1,4 +1,4 @@
-package com.example.legalline.framework.ui.screens.main
+package com.example.legalline.framework.ui.common
 
 import android.content.ClipData
 import android.content.res.Resources.Theme

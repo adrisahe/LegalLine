@@ -15,16 +15,18 @@ import com.example.legalline.framework.viewmodels.ConversationViewModel
 fun ConversationScreen(
     navController: NavHostController,
     isDarkTheme: MutableState<Boolean>,
+    language: MutableState<java.util.Locale>,
     vm: ConversationViewModel = hiltViewModel(),
 ) {
+    vm.setLanguage(language.value.language)
     val scaffoldState = rememberScaffoldState()
     Surface(
         modifier = Modifier.fillMaxSize()
     ) {
-        AplicationTopBar(navController, scaffoldState, isDarkTheme, {
+        AplicationTopBar(navController, scaffoldState, isDarkTheme, language, {
             ConversationTopBar(vm, scaffoldState)
         }) {
-            SaveConversation(vm)
+            SaveConversation(vm, language)
         }
     }
 }

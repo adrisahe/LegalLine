@@ -5,6 +5,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import com.example.legalline.R
 import com.example.legalline.framework.viewmodels.ConversationViewModel
 
@@ -15,7 +16,7 @@ fun EditFavoriteButton(vm: ConversationViewModel) {
     }) {
         Icon(
             painter = painterResource(id = R.drawable.edit_favorite),
-            contentDescription = "edit favorite"
+            contentDescription = stringResource(id = R.string.EditFavoriteDescription)
         )
     }
 }

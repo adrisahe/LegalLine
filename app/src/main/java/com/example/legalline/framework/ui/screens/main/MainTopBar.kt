@@ -1,6 +1,5 @@
 package com.example.legalline.framework.ui.screens.main
 
-import androidx.compose.foundation.text.BasicText
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.Text
@@ -11,10 +10,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import com.example.legalline.R
+import com.example.legalline.framework.ui.common.MenuButton
 import com.example.legalline.framework.viewmodels.MainViewModel
 
 @Composable
-fun MainTopBar(scaffoldState: ScaffoldState, mainViewModel: MainViewModel) {
+fun MainTopBar(
+    scaffoldState: ScaffoldState,
+    mainViewModel: MainViewModel
+) {
     val scope = rememberCoroutineScope()
     TopAppBar(
         title = {

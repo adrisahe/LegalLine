@@ -5,6 +5,7 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.ScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import com.example.legalline.R
 import com.example.legalline.framework.viewmodels.MainViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -19,7 +20,7 @@ fun FavoriteButton(
     }) {
         Icon(
             painter = painterResource(id = R.drawable.delete_favorite),
-            contentDescription = "favorite icon"
+            contentDescription = stringResource(id = R.string.iconFavoriteDescription)
         )
     }
 }

@@ -11,24 +11,24 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
-import com.example.legalline.framework.ui.screens.main.MessagesQuestions
-import com.example.legalline.framework.ui.screens.main.MessagesResponses
-import com.example.legalline.framework.ui.screens.main.WelcomeText
+import com.example.legalline.framework.ui.common.MessagesQuestions
+import com.example.legalline.framework.ui.common.MessagesResponses
+import com.example.legalline.framework.ui.common.WelcomeText
 import com.example.legalline.framework.viewmodels.ConversationViewModel
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 @SuppressLint("CoroutineCreationDuringComposition")
 @Composable
-fun SaveConversation(vm: ConversationViewModel) {
+fun SaveConversation(vm: ConversationViewModel, language: MutableState<Locale>) {
     val responses by vm.listResponses.collectAsState()
     val questions by vm.listQuestions.collectAsState()
     val dialog by vm.alertDialog.collectAsState()
@@ -54,7 +54,7 @@ fun SaveConversation(vm: ConversationViewModel) {
                 state = listState
             ) {
                 item {
-                    WelcomeText()
+                    WelcomeText(language)
                     if (dialog) {
                         OverwriteFavorite(
                             vm = vm,
@@ -90,7 +90,7 @@ fun SaveConversation(vm: ConversationViewModel) {
             verticalAlignment = Alignment.Bottom
         ) {
             Box(modifier = Modifier.weight(1f)) {
-                SendTextFavorite(vm)
+                SendTextFavorite(vm, language)
             }
             SendButton(vm)
         }

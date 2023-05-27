@@ -7,6 +7,8 @@ import com.example.legalline.data.db.DbQuestionAndResponseDao
 import com.example.legalline.domain.Message
 import com.example.legalline.domain.makeRequest.GptSendData
 import com.example.legalline.data.repositories.SendResponsesAndQuestionRepository
+import com.example.legalline.data.utils.identifierLanguage
+import com.google.mlkit.nl.languageid.LanguageIdentifier
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,8 +24,10 @@ class ConversationViewModel @Inject constructor(
     repository: DbQuestionAndResponseDao,
     private val sendResponsesAndQuestionRepository: SendResponsesAndQuestionRepository,
     @Named("apiKey") private val apiKey: String,
-    private val mensajeAbogado: Message,
-    private val dataBase: DbQuestionAndResponseDao
+    @MainViewModelModule.SpanishMessage private val mensajeAbogado: Message,
+    @MainViewModelModule.EnglishMessage private val mensajeAbogado2: Message,
+    private val dataBase: DbQuestionAndResponseDao,
+    private val identifierLanguage: LanguageIdentifier
 ) : ViewModel() {
     private val _nameFavorite = MutableStateFlow("")
     val nameFavorite: StateFlow<String> = _nameFavorite.asStateFlow()
@@ -45,6 +49,12 @@ class ConversationViewModel @Inject constructor(
     private val _loading = MutableStateFlow(false)
     val loading: StateFlow<Boolean> = _loading.asStateFlow()
 
+    private val _language = MutableStateFlow("")
+
+    fun setLanguage(language: String) {
+        _language.value = language
+    }
+
     init {
         viewModelScope.launch(Dispatchers.IO) {
             val conversacion = repository.getConversationById(idNameFavorite)
@@ -61,8 +71,8 @@ class ConversationViewModel @Inject constructor(
     fun questionAndResponse() {
         viewModelScope.launch(Dispatchers.IO) {
             _loading.value = true
-            _listResponses.value =
-                _listResponses.value + listOf(sendResponsesAndQuestionRepository.invoke(sendQuestion(), apiKey))
+            val response = sendResponsesAndQuestionRepository.invoke(sendQuestion(), apiKey)
+            _listResponses.value = _listResponses.value + listOf(response.identifierLanguage(identifierLanguage, _language))
             _loading.value = false
         }
     }
@@ -71,14 +81,20 @@ class ConversationViewModel @Inject constructor(
         _listQuestions.value = _listQuestions.value.plus(_valueText.value)
         val mensaje = Message(_valueText.value, "user")
         val mensaje2 =
-            Message(_listResponses.value.getOrNull(_listResponses.value.lastIndex) ?: "", "assistant")
+            Message(
+                _listResponses.value.getOrNull(_listResponses.value.lastIndex) ?: "",
+                "assistant"
+            )
         _valueText.value = ""
-        val listaMensajes = listOf(mensajeAbogado, mensaje2, mensaje)
-        val cuerpoMensaje = GptSendData(
+        val listaMensajes: List<Message> = if (_language.value == "es") {
+            listOf(mensajeAbogado, mensaje2, mensaje)
+        } else {
+            listOf(mensajeAbogado2, mensaje2, mensaje)
+        }
+        return GptSendData(
             listaMensajes, "gpt-3.5-turbo" +
                     "", 0.7
         )
-        return cuerpoMensaje
     }
 
     fun overwritteFavorite(){

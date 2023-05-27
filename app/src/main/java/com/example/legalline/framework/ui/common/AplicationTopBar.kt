@@ -7,7 +7,7 @@ import androidx.compose.material.ScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.navigation.NavHostController
-import com.example.legalline.framework.ui.screens.main.SideMenu
+import com.example.legalline.framework.ui.common.SideMenu
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
@@ -15,6 +15,7 @@ fun AplicationTopBar(
     navController: NavHostController,
     scaffoldState: ScaffoldState,
     isDarkTheme: MutableState<Boolean>,
+    language: MutableState<java.util.Locale>,
     topAppBar: @Composable () -> Unit,
     content: @Composable () -> Unit
 ) {
@@ -24,7 +25,7 @@ fun AplicationTopBar(
             topAppBar()
         },
         drawerContent = {
-            SideMenu(navController, scaffoldState, isDarkTheme)
+            SideMenu(navController, scaffoldState, isDarkTheme, language)
         },
         drawerBackgroundColor = MaterialTheme.colors.primary
     ) {

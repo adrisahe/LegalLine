@@ -62,7 +62,7 @@ fun NameFavorite(
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent
             ),
-            placeholder = { Text(text = "Nombre conversación")},
+            placeholder = { Text(text = stringResource(id = R.string.nameConversation))},
             textStyle = MaterialTheme.typography.body1,
             isError = error,
         ) },

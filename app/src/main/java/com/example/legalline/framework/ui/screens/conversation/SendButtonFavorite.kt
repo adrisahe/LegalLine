@@ -13,7 +13,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.legalline.R
 import com.example.legalline.framework.viewmodels.ConversationViewModel
 import com.example.legalline.framework.viewmodels.MainViewModel
 
@@ -27,7 +29,7 @@ fun SendButton(vm: ConversationViewModel) {
     ) {
         Icon(
             Icons.Default.Send,
-            contentDescription = "Send Button",
+            contentDescription = stringResource(id = R.string.iconSend),
             tint = Color(0xFFFFFFFF),
             modifier = Modifier
                 .background(Color(0xFF00897B), CircleShape)
