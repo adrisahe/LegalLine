@@ -22,10 +22,8 @@ import com.example.legalline.R
 import java.util.Locale
 
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun LanguageDialog(languageDialog: MutableState<Boolean>, language: MutableState<Locale>) {
-    val context = LocalContext.current
     Column(
         modifier = Modifier
             .fillMaxSize(),
@@ -36,9 +34,15 @@ fun LanguageDialog(languageDialog: MutableState<Boolean>, language: MutableState
             onDismissRequest = {},
             title = { Text(
                 text = stringResource(id = R.string.titlelanguageDialog),
+                fontFamily = FontFamily(Font(R.font.opensans_condensed_regular)),
+                color = MaterialTheme.colors.onError,
             ) },
             text = {
-                Text(text = stringResource(id = R.string.descriptionLanguageDialog))
+                Text(
+                    text = stringResource(id = R.string.descriptionLanguageDialog),
+                    fontFamily = FontFamily(Font(R.font.opensans_condensed_regular)),
+                    color = MaterialTheme.colors.onError,
+                )
             },
             buttons = {
                 Row(

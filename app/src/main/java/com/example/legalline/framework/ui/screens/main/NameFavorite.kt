@@ -33,6 +33,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
@@ -54,6 +55,8 @@ fun NameFavorite(
         onDismissRequest = {},
         title = { Text(
             text = stringResource(id = R.string.dialogTitle),
+            fontFamily = FontFamily(Font(R.font.opensans_condensed_regular)),
+            color = MaterialTheme.colors.onError
         ) },
         text = { TextField(
             value = dialogText,
@@ -62,8 +65,14 @@ fun NameFavorite(
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent
             ),
-            placeholder = { Text(text = stringResource(id = R.string.nameConversation))},
-            textStyle = MaterialTheme.typography.body1,
+            placeholder = { Text(
+                text = stringResource(id = R.string.nameConversation),
+                fontFamily = FontFamily(Font(R.font.opensans_condensed_regular)),
+                color = MaterialTheme.colors.onError,
+            )},
+            textStyle = TextStyle(
+                fontFamily = FontFamily(Font(R.font.opensans_condensed_regular))
+            ),
             isError = error,
         ) },
         buttons = {

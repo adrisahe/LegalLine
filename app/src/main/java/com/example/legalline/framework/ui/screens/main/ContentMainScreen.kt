@@ -8,9 +8,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.legalline.framework.ui.common.MessagesQuestions
@@ -28,6 +31,19 @@ fun ContentMainScreen(mainViewModel: MainViewModel, language: MutableState<Local
     val dialog by mainViewModel.alertDialog.collectAsState()
     val listState = rememberLazyListState()
     val scope = rememberCoroutineScope()
+    val textHeight = remember { mutableStateOf(40.dp) }
+
+    val padding: Dp = if (textHeight.value < 75.dp) {
+        40.dp
+    } else if (textHeight.value < 95.dp) {
+        48.dp
+    } else if (textHeight.value < 115.dp) {
+        57.5.dp
+    } else if(textHeight.value < 130.dp){
+        67.dp
+    } else{
+        76.5.dp
+    }
     ConstraintLayout(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -37,11 +53,11 @@ fun ContentMainScreen(mainViewModel: MainViewModel, language: MutableState<Local
                 .fillMaxWidth()
                 .constrainAs(lazyColumnMessages) {
                     top.linkTo(parent.top)
-                    bottom.linkTo(rowWriteSend.top)
+                    bottom.linkTo(rowWriteSend.top, margin = 0.dp)
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
                 }
-                .padding(top = 40.dp, bottom = 40.dp)
+                .padding(top = padding, bottom = padding)
         ) {
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
@@ -73,7 +89,6 @@ fun ContentMainScreen(mainViewModel: MainViewModel, language: MutableState<Local
                         )
                     }
                 }
-
             }
         }
         Row(
@@ -86,7 +101,7 @@ fun ContentMainScreen(mainViewModel: MainViewModel, language: MutableState<Local
             verticalAlignment = Alignment.Bottom
         ) {
             Box(modifier = Modifier.weight(1f)) {
-                SendText(mainViewModel, language)
+                SendText(mainViewModel, language, textHeight)
             }
             SendButton(mainViewModel)
         }

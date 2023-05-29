@@ -1,5 +1,7 @@
 package com.example.legalline.framework.viewmodels
 
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.legalline.data.db.DbQuestionAndResponse
@@ -51,6 +53,18 @@ class ConversationViewModel @Inject constructor(
 
     private val _language = MutableStateFlow("")
 
+    private val _padding = MutableStateFlow(40.dp)
+    val padding: StateFlow<Dp> = _padding.asStateFlow()
+
+    private val _count = MutableStateFlow(0)
+    val count: StateFlow<Int> = _count.asStateFlow()
+
+
+
+    fun updateText(message: String) {
+        _valueText.value = message
+    }
+
     fun setLanguage(language: String) {
         _language.value = language
     }
@@ -62,10 +76,6 @@ class ConversationViewModel @Inject constructor(
             _listQuestions.value = conversacion.questions
             _listResponses.value = conversacion.responses
         }
-    }
-
-    fun updateText(message: String) {
-        _valueText.value = message
     }
 
     fun questionAndResponse() {

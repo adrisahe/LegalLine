@@ -1,6 +1,9 @@
 package com.example.legalline.framework.viewmodels
 
 import android.database.sqlite.SQLiteConstraintException
+import android.util.Log
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.legalline.data.db.DbQuestionAndResponse
@@ -63,13 +66,13 @@ class MainViewModel @Inject constructor(
 
     private val _language = MutableStateFlow("")
 
-    fun setLanguage(language: String) {
-        _language.value = language
-    }
-
 
     fun updateText(message: String) {
         _valueText.value = message
+    }
+
+    fun setLanguage(language: String) {
+        _language.value = language
     }
 
     fun updateDialogText(text: String) {
@@ -82,7 +85,12 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             _loading.value = true
             val response = sendResponsesAndQuestionRepository.invoke(sendQuestion(), apiKey)
-            _responses.value = _responses.value + listOf(response.identifierLanguage(identifierLanguage, _language))
+            _responses.value = _responses.value + listOf(
+                response.identifierLanguage(
+                    identifierLanguage,
+                    _language
+                )
+            )
             _loading.value = false
         }
     }
