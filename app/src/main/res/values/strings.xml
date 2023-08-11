@@ -1,7 +1,7 @@
 <resources>
     <!-- Screen main -->
     <string name="app_name" translatable="false">Legaline</string>
-    <string name="apy_key" translatable="false">Bearer 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</string>
+    <string name="apy_key" translatable="false">yourApiKey</string>
     <string name="legaline" translatable="false">Legaline</string>
     <string name="welcomeMessage">Buenos días, soy Legaline tu abogado de confianza y experto en temas legales, pregunteme todo lo que necesite</string>
     <string name="dialogTitle">Introduce el nombre de la conversacion</string>

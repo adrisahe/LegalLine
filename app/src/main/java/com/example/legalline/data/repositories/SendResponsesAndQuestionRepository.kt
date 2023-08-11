@@ -23,7 +23,7 @@ class SendResponsesAndQuestionRepository (
         repository.sendQuestion(message, apiKey).enqueue(object : Callback<GptResponse>{
             override fun onResponse(call: Call<GptResponse>, response: Response<GptResponse>) {
                 if(response.isSuccessful){
-                    chatResponse.complete(response.body()?.choices?.get(0)?.message?.content ?: "nulo")
+                    chatResponse.complete(response.body()?.choices?.get(0)?.message?.content ?: "Error")
                 }
                 else{
                     chatResponse.complete("Error")
@@ -32,7 +32,6 @@ class SendResponsesAndQuestionRepository (
 
             override fun onFailure(call: Call<GptResponse>, t: Throwable) {
                 chatResponse.complete("Error")
-                Log.d("::::", t.message.toString())
             }
 
         })

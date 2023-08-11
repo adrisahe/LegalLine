@@ -15,13 +15,13 @@ suspend fun String.identifierLanguage(
     identifierLanguage.identifyPossibleLanguages(this)
         .addOnSuccessListener { identifiedLanguages ->
             for (identifiedLanguage in identifiedLanguages) {
-                if (identifiedLanguage.languageTag != "es" && _language.value == "es") {
+                if (identifiedLanguage.languageTag != "es" && _language.value == "es" && this != "Error") {
                     response.resume(
                         "Soy un letrado español y no tengo conocimientos " +
                                 "sobre otros idiomas, por favor hableme en español."
                     )
                     return@addOnSuccessListener
-                } else if (identifiedLanguage.languageTag != "en" && _language.value == "en") {
+            } else if (identifiedLanguage.languageTag != "en" && _language.value == "en" && this != "Error") {
                     response.resume(
                         "I am a English lawyer and I have no knowledge " +
                                 "of other languages, please speak to me in English."
